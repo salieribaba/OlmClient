@@ -1,7 +1,35 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from "@angular/core";
+import { bootstrapApplication, BrowserModule } from "@angular/platform-browser";
+import { RouterModule } from "@angular/router";
+import { AppComponent } from "./app/app.component";
+import { AuthGuard } from "./app/ui/components/auth/guards/auth.guard";
+import { provideHttpClient } from "@angular/common/http";
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    importProvidersFrom(
+      BrowserModule,
+      RouterModule.forRoot([
+        {
+          path: '',
+          loadComponent: () => import('./app/ui/components/layouts/layouts.component').then(m => m.LayoutsComponent),
+          canActivateChild: [AuthGuard],
+          children: [
+            {
+              path: '',
+              loadComponent: () => import('./app/ui/components/blank/blank.component').then(m => m.BlankComponent)
+            }
+          ]
 
-import { AppModule } from './app/app.module';
+        },
+        {
+          path: 'login',
+          loadComponent: () => import('./app/ui/components/auth/login/login.component').then(m => m.LoginComponent)
+
+        }
+      ])
+    )
+  ]
 
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+})
