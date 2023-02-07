@@ -18,6 +18,10 @@ bootstrapApplication(AppComponent, {
             {
               path: '',
               loadComponent: () => import('./app/ui/components/blank/blank.component').then(m => m.BlankComponent)
+            },
+            {
+              path: 'ucafs',
+              loadComponent: () => import('./app/ui/components/ucafs/ucafs.component').then(m => m.UcafsComponent)
             }
           ]
 

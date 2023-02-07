@@ -5,6 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ValidInputDirective } from 'src/app/common/valid-input.directive';
 import { LoadingButtonComponent } from "../../../../common/components/loading-button/loading-button.component";
 import { AuthService } from '../services/auth.service';
+import { ToastrService, ToastrType } from 'src/app/common/services/toastr.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +20,9 @@ export class LoginComponent {
 
   constructor(
     private _auth: AuthService
-  ) {
+  ) { }
 
-  }
+
 
   login(form: NgForm) {
     if (form.valid) {
