@@ -1,17 +1,26 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { LoginResponseModel } from 'src/app/ui/components/auth/models/login-response-model';
 import { ErrorService } from './error.service';
+import { LoginResponseService } from './login-response.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenericHttpService {
-  apiUrl: string = "";
-  token: string = localStorage.getItem("accessToken")?.toString();
+  loginResponse: LoginResponseModel = new LoginResponseModel();
+
+  apiUrl: string = "https://localhost:7137/api/";
+  token: string = "";
   constructor(
     private _http: HttpClient,
+    private loginResponses: LoginResponseService,
     private _error: ErrorService
-  ) { }
+  ) {
+    this.loginResponse = loginResponses.getLoginResponseModel();
+    this.token = this.loginResponse.token.token;
+  }
+
 
   get<T>(api: string, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {
     this._http.get<T>(`${this.setApi(diffApi, api)}`, this.setOptions(authorize)).subscribe({
@@ -35,7 +44,7 @@ export class GenericHttpService {
 
   setOptions(authorize: boolean) {
     if (authorize)
-      return { headers: { "Authorization": `Bearer ${localStorage.getItem(this.token)}` } }
+      return { headers: { "Authorization": `Bearer ${this.token}` } }
     return {}
   }
 }

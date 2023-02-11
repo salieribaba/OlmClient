@@ -4,7 +4,7 @@ import { NavModel } from './models/nav.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-blanc',
+  selector: 'app-blank',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './blank.component.html',

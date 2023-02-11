@@ -1,10 +1,10 @@
 <div class="wrapper">
   <!-- Navbar -->
-  <app-navbar></app-navbar>
+  <app-navbar [loginResponse]="loginResponse"></app-navbar>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <app-aside [loginResponse]="loginResponse"></app-aside>
+  <app-aside></app-aside>
 
   <!-- Content Wrapper. Contains page content -->
   <router-outlet></router-outlet>
@@ -13,6 +13,6 @@
   <app-footer></app-footer>
 
   <!-- Control Sidebar -->
-  <app-control-sidebar></app-control-sidebar>
+  <!-- <app-control-sidebar></app-control-sidebar> -->
   <!-- /.control-sidebar -->
 </div>
