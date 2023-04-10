@@ -7,10 +7,15 @@ import { CryptoService } from './crypto.service';
 })
 export class LoginResponseService {
 
+
+
   loginResponse: LoginResponseModel = new LoginResponseModel();
   constructor(private _crypto: CryptoService) {
-    let loginResponseString = _crypto.decrypto(localStorage.getItem("accessToken").toString());
-    this.loginResponse = JSON.parse(loginResponseString);
+    let token = localStorage.getItem('accessToken')?.toString();
+    if (token != undefined) {
+      let loginResponsestring = this._crypto.decrypto(token);
+      this.loginResponse = JSON.parse(loginResponsestring);
+    }
   }
 
   getLoginResponseModel() {
